@@ -1,0 +1,49 @@
+app:
+  title: "AirStudio"
+  host: "127.0.0.1"
+  port: 7860
+  concurrency_limit: 1
+  sampling_interval_ms: 50
+  offline_mode: true
+  gpu_index: 0
+
+generation_defaults:
+  max_new_tokens: 16
+  temperature: 0.0
+  top_p: 1.0
+  do_sample: false
+  use_cache: true
+  max_context: 4096
+
+profiles:
+  low_vram:
+    compression: "4bit"
+    layer_cache_dir: "./cache/airllm_layers"
+  balanced:
+    compression: "8bit"
+    layer_cache_dir: "./cache/airllm_layers"
+  quality:
+    compression: null
+    layer_cache_dir: "./cache/airllm_layers"
+
+models:
+  - key: "mistral7b"
+    display_name: "Mistral 7B Instruct"
+    local_path: "./models/Mistral-7B-Instruct-v0.3"
+    family_hint: "mistral"
+  - key: "llama8b"
+    display_name: "Llama 3.1 8B Instruct"
+    local_path: "./models/Llama-3.1-8B-Instruct"
+    family_hint: "llama"
+bench:
+  enabled: true
+  contexts: [512, 4096]
+  repeats: 3
+  warmup: true
+  warmup_new_tokens: 32
+  measure_new_tokens: 128
+  output_dir: "runs"
+
+
+
+
